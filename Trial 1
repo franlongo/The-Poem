@@ -1,0 +1,532 @@
+import processing.io.*;
+
+/**
+ * oscP5sendreceive by andreas schlegel
+ * example shows how to send and receive osc messages.
+ * oscP5 website at http://www.sojamo.de/oscP5
+ */
+ 
+import oscP5.*;
+import netP5.*;
+  
+OscP5 oscP5;
+
+PImage img1;
+PImage img2;
+PImage img3;
+PImage img4;
+PImage img5;
+
+boolean click = false;
+
+float distance;
+
+void setup(){
+  size(1024,663);
+  img1 = loadImage("sausage2.png");
+  img2 = loadImage("sausage.png");
+  img3 = loadImage("Bun.png");
+  img4 = loadImage("ketchup.png");
+  img5 = loadImage("brandenburger_tor.jpg");
+  background(72,188,222);
+  
+    /* start oscP5, listening for incoming messages at port 9000 */
+  oscP5 = new OscP5(this,9000);
+  
+}
+
+void draw(){
+  image(img5,0,0); //background
+ 
+  if(distance > 5.0){ //Bun
+    image(img3,180,-50);
+  }else{
+    fill(255,197,98);
+    rect(235,165,550,5); //Roof Back
+    fill(232,179,89);
+    beginShape();
+    vertex(235,170);
+    vertex(785,170);
+    vertex(775,180);
+    vertex(245,180);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(245,180,530,30);
+    beginShape(); //Podium Roof
+    vertex(435,147);
+    vertex(585,147);
+    vertex(580,152);
+    vertex(440,152);
+    endShape(CLOSE);
+    fill(232,156,77);
+    rect(425,152,170,3);
+    fill(232,179,89);
+    beginShape();
+    vertex(425,155);
+    vertex(595,155);
+    vertex(590,170);
+    vertex(430,170);
+    endShape(CLOSE);
+    fill(232,156,77);
+    beginShape(); //Roof Tile 1
+    vertex(400,180);
+    vertex(620,180);
+    vertex(615,185);
+    vertex(405,185);
+    endShape(CLOSE);
+    beginShape(); //Roof Tile 2
+    vertex(360,185);
+    vertex(660,185);
+    vertex(655,190);
+    vertex(365,190);
+    endShape(CLOSE);
+    beginShape(); //Roof Tile 3
+    vertex(320,190);
+    vertex(700,190);
+    vertex(695,195);
+    vertex(325,195);
+    endShape(CLOSE);
+    beginShape(); //Roof Tile 4
+    vertex(280,195);
+    vertex(740,195);
+    vertex(735,200);
+    vertex(285,200);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(435,160,150,40); // Podium
+    rect(445,170,130,25); 
+    fill(232,156,77);
+    beginShape(); //Roof Tile 5
+    vertex(235,200); 
+    vertex(785,200);
+    vertex(780,205);
+    vertex(240,205);
+    endShape(CLOSE); 
+    beginShape(); //Roof Tile 6
+    vertex(205,205);
+    vertex(815,205);
+    vertex(805,210);
+    vertex(215,210);
+    endShape(CLOSE);
+    rect(215,210,590,10); //Roof Lower Part
+    fill(232,179,89);
+    beginShape();
+    vertex(215,220);
+    vertex(805,220);
+    vertex(785,240);
+    vertex(235,240);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(235,230,550,35); 
+    fill(232,156,77);
+    beginShape();  //Bottom Side of Roof
+    vertex(235,265);
+    vertex(785,265);
+    vertex(750,305);
+    vertex(270,305);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape(); // Rect 1L
+    vertex(285,270);
+    vertex(335,270);
+    vertex(350,295);
+    vertex(310,295);
+    endShape(CLOSE);
+    beginShape(); // Rect 1R
+    vertex(735,270);
+    vertex(685,270);
+    vertex(670,295);
+    vertex(710,295);
+    endShape(CLOSE);
+    beginShape(); // Rect 2L
+    vertex(377,270);
+    vertex(440,270);
+    vertex(460,295);
+    vertex(393,295);
+    endShape(CLOSE);
+    beginShape(); // Rect 2R
+    vertex(643,270);
+    vertex(580,270);
+    vertex(560,295);
+    vertex(627,295);
+    endShape(CLOSE);
+    beginShape(); // Rect Middle
+    vertex(470,270);
+    vertex(550,270);
+    vertex(545,295);
+    vertex(475,295);
+    endShape(CLOSE);
+    fill(222,146,70);
+    rect(270,303,480,7);
+    
+  }
+  if(distance > 7.0){
+    image(img1,170,180);
+  }else{
+    fill(232,179,89);
+    rect(250,275,25,235); //Pillar 1L Wall
+    beginShape();
+    vertex(275,275);
+    vertex(306,303);
+    vertex(306,500);
+    vertex(275,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(230,265,35,3); //Pillar 1L Top
+    fill(232,179,89);
+    beginShape();
+    vertex(265,265);
+    vertex(275,275);
+    vertex(275,278);
+    vertex(265,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(230,268);
+    vertex(265,268);
+    vertex(275,278);
+    vertex(240,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(237,272,25,225); //Pillar 1L Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(262,272);
+    vertex(269,279);
+    vertex(269,495);
+    vertex(262,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(230,505,35,10); //Pillar 1L Bottom
+    beginShape();
+    vertex(237,497);
+    vertex(262,497);
+    vertex(265,505);
+    vertex(230,505);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape();
+    vertex(269,495);
+    vertex(275,500);
+    vertex(265,505);
+    vertex(262,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(275,500);
+    vertex(275,510);
+    vertex(265,515);
+    vertex(265,505);
+    endShape(CLOSE);
+  }
+
+  if(distance > 9.0){
+    image(img2,700,180);
+  }else{
+    fill(232,179,89);
+    rect(745,275,25,235); //Pillar 1R Wall
+    beginShape();
+    vertex(745,275);
+    vertex(714,303);
+    vertex(714,500);
+    vertex(745,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(755,265,35,3); //Pillar 1R Top
+    fill(232,179,89);
+    beginShape();
+    vertex(755,265);
+    vertex(745,275);
+    vertex(745,278);
+    vertex(755,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(790,268);
+    vertex(755,268);
+    vertex(745,278);
+    vertex(780,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(758,272,25,225); //Pillar 1R Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(758,272);
+    vertex(751,279);
+    vertex(751,495);
+    vertex(758,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(755,505,35,10); //Pillar 1R Bottom
+    beginShape();
+    vertex(783,497);
+    vertex(758,497);
+    vertex(755,505);
+    vertex(790,505);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape();
+    vertex(751,495);
+    vertex(745,500);
+    vertex(755,505);
+    vertex(758,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(745,500);
+    vertex(745,510);
+    vertex(755,515);
+    vertex(755,505);
+    endShape(CLOSE);
+  }
+  
+  if(distance > 11.0){
+    image(img1,280,180);
+  }else{
+    fill(232,179,89);
+    rect(347,275,25,235); //Pillar 2L Wall
+    beginShape();
+    vertex(372,275);
+    vertex(390,303);
+    vertex(390,500);
+    vertex(372,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(330,265,35,3); //Pillar 2L Top
+    fill(232,179,89);
+    beginShape();
+    vertex(365,265);
+    vertex(372,275);
+    vertex(372,278);
+    vertex(365,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(330,268);
+    vertex(365,268);
+    vertex(372,278);
+    vertex(337,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(336,272,25,225); //Pillar 2L Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(361,272);
+    vertex(366,279);
+    vertex(366,495);
+    vertex(361,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(330,505,35,10); //Pillar 2L Bottom
+    beginShape();
+    vertex(336,497);
+    vertex(361,497);
+    vertex(365,505);
+    vertex(330,505);
+    endShape(CLOSE);
+    beginShape();
+    fill(232,179,89);
+    vertex(366,495);
+    vertex(372,500);
+    vertex(365,505);
+    vertex(361,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(372,500);
+    vertex(372,510);
+    vertex(365,515);
+    vertex(365,505);
+    endShape(CLOSE);
+  }
+  
+  if(distance > 13.0){ //Sausage
+    image(img2,590,180);
+  }else{
+    fill(232,179,89);
+    rect(648,275,25,235); //Pillar 2R Wall
+    beginShape();
+    vertex(648,275);
+    vertex(630,303);
+    vertex(630,500);
+    vertex(648,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(655,265,35,3); //Pillar 2R Top
+    fill(232,179,89);
+    beginShape();
+    vertex(655,265);
+    vertex(648,275);
+    vertex(648,278);
+    vertex(655,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(690,268);
+    vertex(655,268);
+    vertex(648,278);
+    vertex(683,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(659,272,25,225); //Pillar 2R Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(659,272);
+    vertex(654,279);
+    vertex(654,495);
+    vertex(659,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(655,505,35,10); //Pillar 2L Bottom
+    beginShape();
+    vertex(684,497);
+    vertex(659,497);
+    vertex(655,505);
+    vertex(690,505);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape();
+    vertex(654,495);
+    vertex(648,500);
+    vertex(655,505);
+    vertex(659,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(648,500);
+    vertex(648,510);
+    vertex(655,515);
+    vertex(655,505);
+    endShape(CLOSE);
+  }
+  
+  if(distance > 15.0){ //sausage
+    image(img1,370,180);
+  }else{
+    fill(232,179,89);
+    rect(441,275,25,235); //Pillar 3L Wall
+    beginShape();
+    vertex(466,275);
+    vertex(471,303);
+    vertex(471,500);
+    vertex(466,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(428,265,35,3); //Pillar 3L Top
+    fill(232,179,89);
+    beginShape();
+    vertex(463,265);
+    vertex(466,275);
+    vertex(466,278);
+    vertex(463,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(428,268);
+    vertex(463,268);
+    vertex(466,278);
+    vertex(431,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(434,272,25,225); //Pillar 3L Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(459,272);
+    vertex(461,279);
+    vertex(461,495);
+    vertex(459,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(428,505,35,10); //Pillar 3L Bottom
+    beginShape();
+    vertex(434,497);
+    vertex(459,497);
+    vertex(463,505);
+    vertex(428,505);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape();
+    vertex(461,495);
+    vertex(466,500);
+    vertex(463,505);
+    vertex(459,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(466,500);
+    vertex(466,510);
+    vertex(463,515);
+    vertex(463,505);
+    endShape(CLOSE);
+  }
+    
+  if(distance > 17.0){ //sausage
+    image(img2,500,180);
+  }else{
+    fill(232,179,89);
+    rect(554,275,25,235); //Pillar 3R Wall
+    beginShape();
+    vertex(554,275);
+    vertex(549,303);
+    vertex(549,500);
+    vertex(554,510);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(557,265,35,3); //Pillar 3R Top
+    fill(232,179,89);
+    beginShape();
+    vertex(557,265);
+    vertex(554,275);
+    vertex(554,278);
+    vertex(557,268);
+    endShape(CLOSE);
+    beginShape();
+    vertex(592,268);
+    vertex(557,268);
+    vertex(554,278);
+    vertex(589,278);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(561,272,25,225); //Pillar 3R Middle
+    fill(232,179,89);
+    beginShape();
+    vertex(561,272);
+    vertex(559,279);
+    vertex(559,495);
+    vertex(561,497);
+    endShape(CLOSE);
+    fill(255,197,98);
+    rect(557,505,35,10); //Pillar 3R Bottom
+    beginShape();
+    vertex(586,497);
+    vertex(561,497);
+    vertex(557,505);
+    vertex(592,505);
+    endShape(CLOSE);
+    fill(232,179,89);
+    beginShape();
+    vertex(559,495);
+    vertex(554,500);
+    vertex(557,505);
+    vertex(561,497);
+    endShape(CLOSE);
+    beginShape();
+    vertex(554,500);
+    vertex(554,510);
+    vertex(557,515);
+    vertex(557,505);
+    endShape(CLOSE);
+  } 
+ 
+  if(distance > 19.0){ //ketchup
+    image(img4,420,70);
+  } 
+}
+void mousePressed(){
+  if(click){
+    click = false;
+    }else{
+      click = true;
+    }
+}
+
+
+/* incoming osc message are forwarded to the oscEvent method. */
+void oscEvent(OscMessage theOscMessage) {
+  /* print the address pattern and the typetag of the received OscMessage */
+  print("### received an osc message.");
+  print(" addrpattern: "+theOscMessage.addrPattern());
+  println(" typetag: "+theOscMessage.typetag());
+  println(" value: "+theOscMessage.get(0).floatValue());
+  distance = theOscMessage.get(0).floatValue();}
+ 
