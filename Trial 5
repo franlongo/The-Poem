@@ -1,0 +1,19 @@
+import processing.video.*;
+
+Movie theMov;
+
+void setup() {
+  size (1000,900);
+  theMov = new Movie(this, "aaa.mp4") ;
+  theMov.loop();
+  theMov.play();
+}
+
+
+void draw() {
+  image(theMov, 0, 0);
+}
+
+void movieEvent (Movie m) {
+  m.read();
+}
