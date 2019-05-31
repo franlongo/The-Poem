@@ -1,0 +1,34 @@
+import processing.video.*;
+
+import processing.io.*;
+
+/**
+ * oscP5sendreceive by andreas schlegel
+ * example shows how to send and receive osc messages.
+ * oscP5 website at http://www.sojamo.de/oscP5
+ */
+ 
+import oscP5.*;
+import netP5.*;
+  
+OscP5 oscP5;
+
+//import processing.video.*;
+Movie myMovie;
+
+void setup() {
+  size(1000,800);
+  myMovie =new Movie(this,"aaa.mp4");
+  myMovie.loop ();
+}
+
+void draw(){
+  tint(0, 0);
+  image(myMovie,mouseX,mouseY);
+}
+
+void movieEvent(Movie m) {
+ m.read();
+}
+  //myMovie = load Movie (this, "Adnans animation.mp4");
+//mov = newMovie(this, "Adnans animation.mp4");
